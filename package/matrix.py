@@ -3,19 +3,29 @@ from package.command import CommandSolver;
 
 class Matrix:
     def __init__(self, mode):
-        matrix = [];
+        self.matrix = [];
         self.focus = 0;
         self.mode = mode;
         self.linhas = InputObject("Quantas linhas?: ", int).result;
         self.colunas = InputObject("Quantas colunas?: ", int).result;
         for i in range(self.linhas):
-            matrix.append(list(map(Numbers.processNumber, input("Linha %d: " % (i+1)).split(" "))));
-        self.matrix = matrix;
+            self.matrix.append(self.get_new_row(i));
         self.displayMatrix();
         if self.mode==0:
             self.operar();
         else:
             CommandSolver(self);
+    
+    def lineExists(self, lineNum:int)->bool:
+        m = self.matrix;
+        return not (lineNum<0 or lineNum+1>len(m));
+    
+    def get_new_row(self, iteration:int)->list:
+        newRow = list(map(Numbers.processNumber, input("Linha %d: " % (iteration+1)).split(" ")));
+        if len(newRow) != self.colunas:
+            print("Número incorreto de colunas inserido. Tente novamente.");
+            return self.get_new_row(iteration);
+        return newRow;
     
     def displayMatrix(self):
         length = len(self.matrix);
