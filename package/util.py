@@ -7,7 +7,7 @@ class InputObject:
                 result = acceptedFormat(input(message));
                 if kwargs:
                     if "options" in kwargs and (not result in kwargs.get("options")):
-                        print(f"\"{result}\" is not a valid option! Please try again!");
+                        print(f"\"{result}\" não é uma opção válida! Por favor tente novamente!");
                         continue;
                 self.result = result;
                 break;
@@ -32,4 +32,7 @@ class Numbers:
             numbs = list(map(int, x.split("/")));
             return numbs[0]/numbs[1];
         else:
-            return float(x);
+            try:
+                return float(x);
+            except:
+                return 0;

@@ -34,3 +34,4 @@ operacao na matriz. Aqui vao os comandos aceitos:
         Exemplo:
             add 2 -1 1
             (ira somar todos os elementos da linha 2 com a multiplicacao entre todos os elementos da linha 1 com -1);
+    Para sair do modo manual, apenas entre o comando "exit" ou "exit()", que te levará de volta para o MENU PRINCIPAL.
