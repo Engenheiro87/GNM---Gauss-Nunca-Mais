@@ -1,52 +1,87 @@
-import os;
-from getpass import getpass;
-from package.matrix import Matrix;
-from package.util import InputObject, Numbers;
-
+from package.parser import Parser;
+from package.executor import Executor;
+from package.errors import Error;
+from colorama import init, Fore, Back, Style;
+init(autoreset=True);
 class System:
-    instructionsPath = "package/instrucoes.txt";
-    mode = 0;
-    def __init__(self):
-        self.menu();
+    def __init__(self, block=False):
+        self.__memory = {};
+        self.__focused_var = None;
+        print("[G_NM] - Gauss Nunca Mais (v2.0.0)\n");
+        if not block:
+            self.start_prompt();
     
-    def menu(self):
-        print("#"*15+"\nG.N.M. (GAUSS NUNCA MAIS)");
-        print("1. Solucionar sistema.");
-        print("2. Instruções.");
-        print("3. Selecionar modo de solução.");
-        print("4. Sair.");
-        action = InputObject("Digite a próxima ação: ", int, options=(1, 2, 3, 4)).result;
-        match action:
-            case 1:
-                Matrix(System.mode);
-                return self.menu();
-            case 2:
-                System.instrucoes();
-                return self.menu();
-            case 3:
-                System.set_mode();
-                return self.menu();
-            case 4:
-                print("\nBons estudos!");
+    @property
+    def memory(self):
+        return self.__memory;
+
+    def start_prompt(self):
+        try:
+            raw_input = input("Run Command | ");
+            if raw_input.lower() == "exit":
+                return self.__exit();
+            if raw_input.lower()=="help":
+                self.__show_instructions()
+                return self.start_prompt();
+            self.run_command(self.__add_focused_variable(raw_input)+raw_input);
+        except KeyboardInterrupt:
+            self.__exit();
     
-    @classmethod
-    def set_mode(cls):
-        print("\nSelecione um dos modos de operação:");
-        print("1. Automático.");
-        print("2. Manual.");
-        action = InputObject("Insira o número correspondente: ", int, options=(1, 2)).result;
-        cls.mode = action-1;
+    def __exit(self):
+        print(". . .");
 
-    @staticmethod
-    def instrucoes():
-        if not os.path.exists(System.instructionsPath):
-            print("Algo deu errado. O arquivo instrucoes.txt não foi carregado.");
-            return;
-        with open(System.instructionsPath, "r") as file:
-            print("\n"+file.read()+"\n");
-            getpass("Pressione enter para continuar...");
+    def __show_instructions(self):
+        file_path = "package/instructions.txt";
+        try:
+            with open(file_path, encoding="utf-8") as file:
+                print(file.read());
+        except:
+            return Error("NO_INSTRCTNS");
 
-    @staticmethod
-    def get_mode():
-        return System.mode
+    def run_command(self, command:str):
+        parsed_command = Parser.parse_command(command);
+        if type(parsed_command)==Error:
+            return self.start_prompt();
+        result = Executor(self, parsed_command.scope, parsed_command.action, parsed_command.args).result;
+        if parsed_command.variable_name and type(result)!=Error and type(result)!=None:
+            self.__set_variable(parsed_command.variable_name, result);
+        self.start_prompt();
+    
+    def get_variable(self, var_name:str)->any|None:
+        return var_name in self.memory and self.memory[var_name] or None;
+    
+    def display_variables(self):
+        for name, item in self.__memory.items():
+            print(f"\"{name}\" =");
+            print(item);
+    
+    def delete_variable(self, vars:str):
+        for var_name in vars.split():
+            if not var_name in self.__memory:
+                return Error("UNKWN_VAR", VAR=var_name);
+            if self.__focused_var == var_name:
+                self.focus_variable(None);
+            self.__memory.pop(var_name);
+    
+    def display_variable(self, var_name:str):
+        if not var_name in self.__memory:
+            return Error("UNKWN_VAR", VAR=var_name);
+        print(f"\"{var_name}\" =");
+        print(self.__memory[var_name]);
+    
+    def focus_variable(self, var_name:str|None):
+        if var_name!=None:
+            if not var_name in self.memory:
+                return Error("UNKWN_VAR", VAR=var_name);
+            print(Fore.BLUE+f"(@) Focused on variable \"{var_name}\"");
+        self.__focused_var = var_name;
 
+    def __add_focused_variable(self, raw_cmd:str)->str:
+        if not self.__focused_var or "var " in raw_cmd:
+            return "";
+        return self.__focused_var+" ";
+    
+    def __set_variable(self, var_name:str, value:any):
+        if Executor.scope_exists(var_name):
+            return Error("FRBDDN_VAR", NAME=var_name);
+        self.__memory[var_name] = value;
