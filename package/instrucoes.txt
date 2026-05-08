@@ -1,0 +1,37 @@
+    Bem-vindo ao GNM, um sistema que resolve equacoes
+lineares com base no metodo de Gauss automaticamente para
+voce! Aqui vao algumas dicas:
+    1) Para comecar, voce ira selecionar a primeira opcao no 
+menu, "Solucionar sistema".
+    2) Voce devera inserir quantas linhas (sentido vertical)
+e quantas colunas (sentido horizontal) o seu sistema tem.
+    3) O sistema ira te pedir cada linha do seu sistema e
+voce devera inserir apenas os coeficientes EM ORDEM e SEPARADOS
+POR ESPACO.
+    4) Na etapa 3), o sistema aceita fracoes no formato "x/y"
+inves de decimais (aceita decimais tambem) desde que o 
+numerador e o denominador estejam separados por uma barra "/"
+e sem espaços.
+    5) Qualquer duvida, contate "henriquecatharino7@gmail.com".
+
+MODO MANUAL:
+    No modo manual, voce devera aplicar as operacoes elementares
+manualmente. Isso quer dizer que o sistema ira te apresentar a
+matriz atual e voce devera utilizar comandos para rodar alguma
+operacao na matriz. Aqui vao os comandos aceitos:
+    I) swap [index1] [index2]
+        Ira permutar a linha index1 com a linha index2.
+        Exemplo:
+            swap 2 1
+            (ira permutar a linha 2 com a linha 1 (em linguagem de programacao, 1 e 0 respectivamente));
+    II) scale [linha] [escalar]
+        Ira multiplicar todos os elementos da linha mencionada pelo escalar;
+        Exemplo:
+            scale 1 1/2
+            (ira multiplicar todos os elementos da primeira linha por 0.5);
+    III) add [linha1] [escalar] [linha2]
+        Ira somar todos os elementos da linha 1 com a multiplicacao entre o escalar e os elementos da linha 2.
+        Exemplo:
+            add 2 -1 1
+            (ira somar todos os elementos da linha 2 com a multiplicacao entre todos os elementos da linha 1 com -1);
+    Para sair do modo manual, apenas entre o comando "exit" ou "exit()", que te levará de volta para o MENU PRINCIPAL.
