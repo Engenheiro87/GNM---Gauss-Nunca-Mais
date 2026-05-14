@@ -1,33 +1,41 @@
 # Welcome to GNM (Gauss Nunca Mais) 2.0.0
-    The system has been optmized and became a "micro-language" that parses commands and applies them
-to as many matrices as you want!
+<p>The system has been optmized and became a "micro-language" that parses commands and applies them to as many matrices as you want!</p>
 
 ## CREATING YOUR FIRST MATRIX:
-    To create a Matrix, you must assign a new Matrix object into a variable. To assign a new variable,
-type in the name of the variable followed by an equals sign (=).
-    Ex:
-        "Run Command | variable1 = ..."
-    Then we need to define a scope. Since we're working with Matrices, the scope is "m". Once we have
-defined the scope, we can use one of the functions available in that scope. We're gonna use "create" here.
-    Ex:
-        "Run Command | matrix1 = m create ..."
-    Now time to give our Matrix an identity. The "create" function accepts a single argument which is the
-Matrix itself. You can build the Matrix just like in MATLAB, by separating columns with SPACES and rows
-with semicolons (;).
-    For example, we want to build:
+<p>To create a Matrix, you must assign a new Matrix object into a variable. To assign a new variable, type in the name of the variable followed by an equals sign (=).</p>
+<p>
+Ex:
+    <pre>"Run Command | variable1 = ..."</pre>
+</p>
+<p>Then we need to define a scope. Since we're working with Matrices, the scope is "m". Once we have
+defined the scope, we can use one of the functions available in that scope. We're gonna use "create" here.</p>
+<p>Ex:
+<pre>"Run Command | matrix1 = m create ..."</pre>
+</p>
+<p>Now time to give our Matrix an identity. The <b>create</b> function accepts a single argument which is the
+Matrix itself. You can build the Matrix just like in <i>MATLAB</i>, by separating columns with <b>SPACES</b> and rows
+with <b>SEMICOLONS</b> (;).</p>
+<p>For example, we want to build:
+<pre>
 | 1 2 |
 | 3 4 |
-    So we type in:
-        "Run Command | matrix1 = m create 1 2; 3 4"
-    The system still accepts fractions and decimals to build and operate with matrices:
-        "Run Command | matrix1 = m create 1/2 2; 3/4 4" would build:
+</pre>
+So we type in:
+<pre>Run Command | matrix1 = m create 1 2; 3 4"</pre>
+The system still accepts fractions and decimals to build and operate with matrices:
+<pre>Run Command | matrix1 = m create 1/2 2; 3/4 4"</pre> would build:
+<pre>
 | 1/2 2 |
 | 3/4 4 |
-
-## OPERATING WITH MATRICES
-    To operate with matrices, we can use the "swap", "scale" and "add" functions present in the same "m" scope.
-    The difference is that since we're operating with matrices that are already stored in variables, we use
+</pre>
+</p>
+<h2>OPERATING WITH MATRICES</h2>
+<p>
+To operate with matrices, we can use the "swap", "scale" and "add" functions present in the same "m" scope.
+The difference is that since we're operating with matrices that are already stored in variables, we use
 the variables' name as a scope! That allows us to operate with multiple matrices at the same time.
+</p>
+<
     Example:
         "Run Command | matrix1 scale 1 1/2" would multiply matrix1's first line by 0.5;
         "Run Command | matrix1 swap 1 3" would swap matrix1's line 1 with line 3; and
