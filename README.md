@@ -35,20 +35,19 @@ To operate with matrices, we can use the "swap", "scale" and "add" functions pre
 The difference is that since we're operating with matrices that are already stored in variables, we use
 the variables' name as a scope! That allows us to operate with multiple matrices at the same time.
 </p>
-<
-    Example:
-        "Run Command | matrix1 scale 1 1/2" would multiply matrix1's first line by 0.5;
-        "Run Command | matrix1 swap 1 3" would swap matrix1's line 1 with line 3; and
-        "Run Command | matrix2 add 3 -2 1" would add matrix2's line 3 by line 1 * (-2).
+<p>Example:</p>
+        <pre>Run Command | matrix1 scale 1 1/2" would multiply matrix1's first line by 0.5;</pre>
+        <pre>"Run Command | matrix1 swap 1 3" would swap matrix1's line 1 with line 3; and</pre>
+        <pre>"Run Command | matrix2 add 3 -2 1" would add matrix2's line 3 by line 1 * (-2).</pre>
 
-## USING THE VAR SCOPE
-    The "var" (variable) scope comes to make it easier to work with multiple matrices at the same time. Allowing to,
-in the future, perform operations like add, subtract and multiple matrices. The available functions for the
-"var" scope are:
-    1. "all" [no arguments] prints all current variables stored in the system's memory alongside their value. If we had created
+<h2>USING THE VAR SCOPE</h2>
+<p>The "var" (variable) scope comes to make it easier to work with multiple matrices at the same time. Allowing to perform operations like add, subtract and (soon) multiply matrices. The available functions for the
+"var" scope are:</p>
+<ol>
+    <li>"all" [no arguments] prints all current variables stored in the system's memory alongside their value. If we had created
 two matrices "matrix1" and "matrix2" before and we used "Run Command | var all", all the matrices in their current
-form would be printed;
-    
+form would be printed;</li>
+</ol>
     2. "del" [variable1, ...] deletes all the provided variables. Again, if we had matrix1 and matrix2 currently
 loaded in the system, we could either:
     "Run Command | var del matrix1" -> destroys matrix1 from the system, remaining only matrix2;
